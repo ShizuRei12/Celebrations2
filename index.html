@@ -20,36 +20,37 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
+  overflow-x:hidden;
+  padding:20px;
 }
 
 /* MAIN */
 .container{
   position:relative;
-  text-align:center;
   width:100%;
-  max-width:1200px;
-  padding:40px 20px 120px;
+  max-width:1400px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
+  padding:40px 20px 80px;
 }
 
-/* VIDEO */
+/* VIDEO BOX */
 .video-box{
   position:relative;
-  width:650px;
+  width:380px;
   max-width:90vw;
-  border-radius:20px;
+  border-radius:22px;
   overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  box-shadow:0 10px 25px rgba(0,0,0,0.35);
   z-index:2;
 }
 
 video{
   width:100%;
   display:block;
+  border-radius:22px;
 }
 
 /* ENVELOPE */
@@ -89,17 +90,16 @@ video{
 
 /* BUTTON */
 .message-btn{
-  margin-top:30px;
+  margin-top:20px;
   background:#ff4f81;
   color:white;
   border:none;
-  padding:16px 34px;
+  padding:14px 30px;
   border-radius:50px;
-  font-size:22px;
+  font-size:20px;
   cursor:pointer;
   transition:0.3s;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-  position:relative;
+  box-shadow:0 5px 15px rgba(0,0,0,0.25);
   z-index:3;
 }
 
@@ -121,6 +121,7 @@ video{
 .popup-box{
   background:white;
   width:340px;
+  max-width:90vw;
   padding:25px;
   border-radius:20px;
   text-align:left;
@@ -150,11 +151,11 @@ video{
 /* POLAROIDS */
 .polaroid{
   position:absolute;
-  width:180px;
+  width:130px;
   background:white;
-  padding:10px 10px 25px;
-  box-shadow:0 8px 18px rgba(0,0,0,0.35);
+  padding:10px 10px 22px;
   border-radius:12px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.3);
   z-index:1;
 }
 
@@ -164,31 +165,31 @@ video{
 }
 
 .polaroid p{
-  margin-top:10px;
-  font-size:15px;
+  margin-top:8px;
+  font-size:13px;
   font-weight:bold;
 }
 
-/* LEFT PHOTO */
+/* DESKTOP POSITIONING */
 #left{
-  top:40px;
-  left:20px;
+  top:20px;
+  left:120px;
   transform:rotate(-8deg);
 }
 
-/* RIGHT PHOTO */
 #right{
-  top:40px;
-  right:20px;
+  top:20px;
+  right:120px;
   transform:rotate(8deg);
 }
 
-/* FLOATING HEARTS */
+/* HEARTS */
 .heart{
   position:absolute;
   color:white;
   font-size:20px;
   animation:float 5s linear infinite;
+  pointer-events:none;
 }
 
 @keyframes float{
@@ -202,30 +203,59 @@ video{
   }
 }
 
-/* MOBILE RESPONSIVE */
-@media (max-width: 900px){
-
-  .video-box{
-    width:90vw;
-  }
-
-  .polaroid{
-    width:120px;
-  }
+/* TABLET */
+@media (max-width: 1000px){
 
   #left{
-    top:-70px;
-    left:0;
+    left:30px;
   }
 
   #right{
-    top:-70px;
-    right:0;
+    right:30px;
+  }
+
+  .polaroid{
+    width:110px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 700px){
+
+  body{
+    padding:10px;
+  }
+
+  .container{
+    padding-top:140px;
+    padding-bottom:50px;
+  }
+
+  .video-box{
+    width:92vw;
+  }
+
+  .polaroid{
+    width:100px;
+  }
+
+  #left{
+    top:20px;
+    left:5px;
+  }
+
+  #right{
+    top:20px;
+    right:5px;
   }
 
   .message-btn{
-    font-size:18px;
-    padding:14px 28px;
+    font-size:17px;
+    padding:12px 24px;
+  }
+
+  .popup-box{
+    width:90vw;
   }
 }
 
@@ -234,7 +264,7 @@ video{
 
 <body>
 
-<!-- 🎵 BACKGROUND MUSIC -->
+<!-- MUSIC -->
 <audio id="bgMusic" loop>
   <source src="https://raw.githubusercontent.com/ShizuRei12/Celebrations2/main/Phil%20Collins%20-%20Youll%20Be%20In%20My%20Heart.mp3" type="audio/mpeg">
 </audio>
@@ -243,7 +273,7 @@ video{
 
   <!-- LEFT PHOTO -->
   <div class="polaroid" id="left">
-    <img src="https://raw.githubusercontent.com/ShizuRei12/Celebrations2/main/JasMyea.jpg" alt="JasMyea">
+    <img src="https://raw.githubusercontent.com/ShizuRei12/Celebrations2/main/JasMyea.jpg">
     <p>Mama & Baby 💕</p>
   </div>
 
@@ -267,7 +297,7 @@ video{
 
   <!-- RIGHT PHOTO -->
   <div class="polaroid" id="right">
-    <img src="https://raw.githubusercontent.com/ShizuRei12/Celebrations2/main/JasMyea2.jpg" alt="JasMyea2">
+    <img src="https://raw.githubusercontent.com/ShizuRei12/Celebrations2/main/JasMyea2.jpg">
     <p>Happy Moment ✨</p>
   </div>
 
@@ -306,7 +336,6 @@ video{
 
 <script>
 
-/* ELEMENTS */
 const bgMusic = document.getElementById("bgMusic");
 const video = document.getElementById("myVideo");
 
@@ -315,11 +344,10 @@ function openCover(el){
 
   el.classList.add("open");
 
-  /* PLAY VIDEO */
   video.play();
 }
 
-/* PLAY MUSIC WHEN READ MESSAGE IS CLICKED */
+/* MESSAGE POPUP */
 function showPopup(){
 
   bgMusic.play().catch(() => {});
@@ -332,17 +360,15 @@ function closePopup(){
   document.getElementById("popup").style.display = "none";
 }
 
-/* STOP MUSIC WHEN VIDEO PLAYS */
+/* VIDEO + MUSIC CONTROL */
 video.addEventListener("play", () => {
   bgMusic.pause();
 });
 
-/* RESUME MUSIC WHEN VIDEO PAUSES */
 video.addEventListener("pause", () => {
   bgMusic.play().catch(() => {});
 });
 
-/* RESUME MUSIC WHEN VIDEO ENDS */
 video.addEventListener("ended", () => {
   bgMusic.play().catch(() => {});
 });
@@ -367,7 +393,7 @@ function createHeart(){
   }, 5000);
 }
 
-setInterval(createHeart, 300);
+setInterval(createHeart, 350);
 
 </script>
 
