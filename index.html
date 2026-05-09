@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Letter</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* MAIN */
+.container{
+  position:relative;
+  text-align:center;
+}
+
+/* VIDEO */
+.video-box{
+  position:relative;
+  width:500px;
+  max-width:95vw;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+video{
+  width:100%;
+  display:block;
+}
+
+/* ENVELOPE */
+.cover{
+  position:absolute;
+  inset:0;
+  background:#fff2d8;
+  border:4px solid #e0c18f;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding-top:40px;
+  cursor:pointer;
+  z-index:5;
+  transition:1s;
+  font-size:24px;
+  font-weight:bold;
+  color:#8b5e3c;
+}
+
+.cover::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:50%;
+  top:0;
+  left:0;
+  background:#f3d8a6;
+  clip-path:polygon(0 0,50% 100%,100% 0);
+}
+
+.cover.open{
+  transform:translateY(-120%) rotateX(90deg);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* BUTTON */
+.message-btn{
+  margin-top:25px;
+  background:#ff4f81;
+  color:white;
+  border:none;
+  padding:14px 28px;
+  border-radius:50px;
+  font-size:18px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.message-btn:hover{
+  transform:scale(1.08);
+}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:20;
+}
+
+.popup-box{
+  background:white;
+  width:340px;
+  padding:25px;
+  border-radius:20px;
+  text-align:left;
+  position:relative;
+  animation:popup 0.4s ease;
+}
+
+@keyframes popup{
+  from{
+    transform:scale(0.7);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+.close{
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:22px;
+  cursor:pointer;
+}
+
+/* BIGGER POLAROIDS */
+.polaroid{
+  position:absolute;
+  width:210px;
+  background:white;
+  padding:12px 12px 30px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.35);
+  border-radius:12px;
+}
+
+.polaroid img{
+  width:100%;
+  border-radius:6px;
+}
+
+.polaroid p{
+  margin-top:10px;
+  font-size:16px;
+  font-weight:bold;
+}
+
+#left{
+  top:-150px;
+  left:-250px;
+  transform:rotate(-10deg);
+}
+
+#right{
+  bottom:-150px;
+  right:-250px;
+  transform:rotate(10deg);
+}
+
+/* FLOATING HEARTS */
+.heart{
+  position:absolute;
+  color:white;
+  font-size:20px;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  from{
+    transform:translateY(0);
+    opacity:1;
+  }
+  to{
+    transform:translateY(-100vh);
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://raw.githubusercontent.com/ShizuRei12/Celebrations2/main/Phil%20Collins%20-%20Youll%20Be%20In%20My%20Heart.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+  <!-- LEFT PHOTO -->
+  <div class="polaroid" id="left">
+    <img src="https://raw.githubusercontent.com/ShizuRei12/Celebrations2/main/JasMyea.jpg" alt="JasMyea">
+    <p>Mama & Baby 💕</p>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video-box">
+
+    <div class="cover" onclick="openCover(this)">
+      Open Me 💌
+    </div>
+
+    <video id="myVideo" controls>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    </video>
+
+  </div>
+
+  <!-- BUTTON -->
+  <button class="message-btn" onclick="showPopup()">
+    Read Message 💖
+  </button>
+
+  <!-- RIGHT PHOTO -->
+  <div class="polaroid" id="right">
+    <img src="https://raw.githubusercontent.com/ShizuRei12/Celebrations2/main/JasMyea2.jpg" alt="JasMyea2">
+    <p>Happy Moment ✨</p>
+  </div>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+
+  <div class="popup-box">
+
+    <span class="close" onclick="closePopup()">✖</span>
+
+    <h2>💌 Special Letter</h2>
+
+    <br>
+
+    <p>
+      My Love,
+      <br><br>
+
+      Thank you for every beautiful memory,
+      every smile, and every moment together.
+
+      <br><br>
+
+      You make my life brighter and happier 💕
+
+      <br><br>
+
+      Always and forever.
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+
+/* ELEMENTS */
+const bgMusic = document.getElementById("bgMusic");
+const video = document.getElementById("myVideo");
+
+/* OPEN ENVELOPE */
+function openCover(el){
+
+  el.classList.add("open");
+
+  /* PLAY VIDEO */
+  video.play();
+}
+
+/* PLAY MUSIC WHEN READ MESSAGE IS CLICKED */
+function showPopup(){
+
+  /* PLAY MUSIC */
+  bgMusic.play().catch(() => {});
+
+  /* SHOW POPUP */
+  document.getElementById("popup").style.display = "flex";
+}
+
+/* CLOSE POPUP */
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+/* STOP MUSIC WHEN VIDEO PLAYS */
+video.addEventListener("play", () => {
+  bgMusic.pause();
+});
+
+/* RESUME MUSIC WHEN VIDEO PAUSES */
+video.addEventListener("pause", () => {
+  bgMusic.play().catch(() => {});
+});
+
+/* RESUME MUSIC WHEN VIDEO ENDS */
+video.addEventListener("ended", () => {
+  bgMusic.play().catch(() => {});
+});
+
+/* FLOATING HEARTS */
+function createHeart(){
+
+  const heart = document.createElement("div");
+
+  heart.classList.add("heart");
+
+  heart.innerHTML = "❤";
+
+  heart.style.left = Math.random() * window.innerWidth + "px";
+
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
+setInterval(createHeart, 300);
+
+</script>
+
+</body>
+</html>
